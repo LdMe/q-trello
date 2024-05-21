@@ -13,6 +13,8 @@ const getAll = async()=> {
 const getById = async(id) =>{
     try {
         const project = await projectModel.findById(id);
+        await project.populate("users");
+        await project.populate("tasks");
         return project;
     } catch (error) {
         console.error(error);
