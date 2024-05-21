@@ -21,6 +21,8 @@ const getById = async(id) =>{
 }
 const getByProperty = async(property,value) =>{
     try {
+        console.log("property",property)
+        console.log("value",value)
         const user = await userModel.find({[property]:value})
         return user;
     } catch (error) {
@@ -39,7 +41,9 @@ const create = async(data) =>{
 
 const update = async(id,data) =>{
     try {
-        const user = await userModel.findByIdAndUpdate(id,data);
+        const oldUser = await userModel.findByIdAndUpdate(id,data);
+        const user = await userModel.findById(id);
+        console.log("usurio",user);
         return user;
     } catch (error) {
         console.error(error);

@@ -10,9 +10,15 @@ const userData = {
 }
 
 describe("Test de userController",()=>{
+    
     beforeAll(async ()=>{
         await connectDB();
-        await mongoose.connection.collections["users"].drop();
+        try {
+            await mongoose.connection.collections["users"].drop();
+            
+        } catch (error) {
+            
+        }
     })
     afterAll(async()=>{
         await mongoose.connection.close();
@@ -28,7 +34,6 @@ describe("Test de userController",()=>{
         const users= await userController.getByProperty("email","mimail@mail.com");
         expect(users.length).toBeGreaterThanOrEqual(1);
         const user = users[0];
-        console.log("user",user);
         expect(user.email).toEqual(userData.email);
         expect(user.username).toEqual(userData.username);
         expect(user.role).toEqual(userData.role);

@@ -6,6 +6,7 @@ const taskSchema = new mongoose.Schema({
         required:true
     },
     description: String,
+    estimatedHours: Number,
     users:[
         {
             type: mongoose.Schema.ObjectId,

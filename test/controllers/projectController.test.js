@@ -5,11 +5,16 @@ import userController from "../../src/controllers/users/userController.js"
 
 let projectId = null;
 let userId = null;
+let newUser;
 describe("Test de projectController",()=>{
     beforeAll(async ()=>{
         await connectDB();
         try{
             await mongoose.connection.collections["projects"].drop();
+            newUser = await userController.getByProperty("email","mail");
+            if(!newUser){
+                newUser = await userController.create({username:"algo",email:"mail",password:"1234"});
+            }
         }
         catch(error){
             console.error(error);
@@ -33,7 +38,7 @@ describe("Test de projectController",()=>{
         expect(project.owner).toEqual(users[0]._id);
     })
     test("Añadir usuario",async()=>{
-        const newUser = await userController.create({username:"algo",email:"mail",password:"1234"});
+        
         userId = newUser._id;
         const project = await projectController.addUser(projectId,newUser._id);
         expect(project).not.toBeNull();
