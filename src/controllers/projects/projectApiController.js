@@ -1,7 +1,9 @@
 import projectController from "./projectController.js";
 
 const getAll = async(req,res)=>{
-    const projects = await projectController.getAll();
+    const isAdmin = req.user.role === "admin";
+    const userId = isAdmin ? null : req.user._id;
+     const projects = await projectController.getAll(userId);
     res.json({data:projects});
 }
 
@@ -14,7 +16,9 @@ const getById = async (req,res) =>{
 
 
 const create = async(req,res)=>{
-    const project = await projectController.create(req.body);
+    const owner = req.user._id
+    const data = {...req.body,owner};
+    const project = await projectController.create(data);
     res.json({data:project})
 }
 

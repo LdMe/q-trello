@@ -1,10 +1,16 @@
 import projectModel from "../../models/projectModel.js";
 import taskController from "../tasks/taskController.js";
+import userController from "../users/userController.js";
 
-const getAll = async()=> {
+const getAll = async(userId=null)=> {
     try {
-        const projects = await projectModel.find();
-        return projects;
+        if(!userId){
+            const projects = await projectModel.find();
+            return projects;
+        }
+        const user =await userController.getById(userId);
+        await user.populate("projects");
+        return user.projects;
     } catch (error) {
         console.error(error);
         return [];
@@ -13,6 +19,9 @@ const getAll = async()=> {
 const getById = async(id) =>{
     try {
         const project = await projectModel.findById(id);
+        if(!project){
+            return null;
+        }
         await project.populate("users");
         await project.populate("tasks");
         return project;
@@ -28,6 +37,7 @@ const create = async(data) =>{
         const project = await projectModel.create(data);
         project.users.push(data.owner);
         await project.save();
+        await userController.addProject(data.owner,project._id);
         return project;
     } catch (error) {
         console.error(error); 
@@ -51,6 +61,7 @@ const remove = async(id) =>{
     try {
         const project = await projectModel.findByIdAndDelete(id);
         const result = await taskController.removeForProject(id);
+        await userController.removeProject(project.owner,id)
         return project;
     } catch (error) {
         console.error(error);
@@ -59,7 +70,10 @@ const remove = async(id) =>{
 }
 const addUser = async(projectId,userId) =>{
     try {
+        console.log("usuriio",userId)
         const project = await getById(projectId);
+        console.log("proyecto",project);
+        await userController.addProject(userId,projectId)
         if(!project.users.includes(userId)){
             project.users.push(userId);
             await project.save();
@@ -74,6 +88,10 @@ const removeUser = async(projectId,userId)=>{
     try {
         console.log("removeUser",projectId,userId)
         const project = await getById(projectId);
+        if(userId.equals(project.owner)){
+            return {error:"El owner no se puede borrar"};
+        }
+        await userController.removeProject(userId,projectId);
         if(project.users.includes(userId)){
             project.users = project.users.filter(u=> !u.equals(userId));
             await project.save();
