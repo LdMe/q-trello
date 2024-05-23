@@ -5,6 +5,7 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required:true
     },
+    description: String,
     owner: {
         type: mongoose.Schema.ObjectId,
         ref: 'users'
@@ -20,7 +21,11 @@ const projectSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'tasks'
         }
-    ]
+    ],
+    daysToComplete: {
+        type: Number,
+        default: 7
+    }
 });
 
 const projectModel = mongoose.model("projects",projectSchema);

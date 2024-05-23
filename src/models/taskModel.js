@@ -22,6 +22,10 @@ const taskSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
             ref: 'projects',
             required: true
+    },
+    recommendedUserQuantity:{
+        type: Number,
+        default: 1
     }
 })
 
