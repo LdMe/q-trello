@@ -5,6 +5,12 @@ import ProjectController from "../projects/projectController.js"
 const getAll = async (projectId) =>{
     try {
         const tasks = await taskModel.find({project:projectId});
+        await Promise.all(tasks.map(async(task) => {
+            await task.populate({
+                path:"users",
+                select: { username:1, email:1, role:1 }
+            });
+        }));
         return tasks;
     } catch (error) {
         console.error(error);
@@ -16,6 +22,10 @@ const getAll = async (projectId) =>{
 const getById = async(id) =>{
     try {
         const task = await taskModel.findById(id);
+        await task.populate({
+            path:"users",
+            select: { username:1, email:1, role:1 }
+        });
         return task;
     } catch (error) {
         console.error(error);
