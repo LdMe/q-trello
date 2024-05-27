@@ -4,11 +4,13 @@ import connectDB from "./config/mongo.js";
 import router from "./routes/router.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../swagger.json" assert { type: 'json' };
+import cors from "cors";
 
 dotenv.config();
 const CONTAINER_PORT = 3000;
 
 const app = express();
+app.use(cors());
 app.use(express.json()); // api
 //app.use(express.urlencoded({extended:true})); // vistas
 connectDB();
