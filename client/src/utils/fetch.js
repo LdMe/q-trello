@@ -1,6 +1,6 @@
 import { getToken } from "./local";
 
-const BACKEND_URL = "http://localhost:3020/api";
+const BACKEND_URL = "http://192.168.1.130:3020/api";
 
 const fetchData = async(route,method,data) =>{
     try {

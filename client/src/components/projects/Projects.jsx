@@ -6,14 +6,17 @@ const Projects = () => {
     const [projects,setProjects] = useState([]);
     const [isCreating,setIsCreating] = useState(false);
     useEffect(() => {
-        getProjects()
-            .then((response) => {
-                console.log("response",response)
-                setProjects(response.data);
-            })
+        handleGetProjects();
     },[])
+    useEffect(() => {
+        setIsCreating(false);
+    },[projects])
+    const handleGetProjects = async () => {
+        const response = await getProjects();
+        setProjects(response.data);
+    }
     if(isCreating){
-        return <CreateProject setIsCreating={setIsCreating}/>
+        return <CreateProject onCreate={()=>handleGetProjects()}/>
     }
     return (
         <div>

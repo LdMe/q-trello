@@ -3,6 +3,7 @@ const ProjectCard = ({project}) => {
     return (
         <div>
             <h2>{project.name}</h2>
+            <p>{project.description}</p>
             <p>Tareas:</p>
             <ul>
                 {project.tasks.map((task) => (
