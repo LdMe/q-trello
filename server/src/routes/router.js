@@ -13,6 +13,6 @@ router.get("/",(req,res)=>{
 })
 router.use("/users",isAdmin,userRouter);
 router.use("/projects",isAuthenticated,projectRouter);
-router.use("/tasks",isAuthenticated,taskRouter);
+router.use("/tasks",taskRouter);
 router.use("/",authRouter);
 export default router;

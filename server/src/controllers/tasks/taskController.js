@@ -1,5 +1,6 @@
 import taskModel from "../../models/taskModel.js";
 import ProjectController from "../projects/projectController.js"
+import { getEstimatedTime } from "../../utils/claudio.js";
 
 const getAll = async (projectId) =>{
     try {
@@ -33,6 +34,12 @@ const getByProperty = async(property,value) =>{
 const create = async(data) =>{
     try {
         const task = await taskModel.create(data);
+        if(!task.estimatedHours){
+            const message = await getEstimatedTime(task);
+            console.log("Claudio says: ",message);
+            task.estimatedHours = parseInt(message.content[0].text);
+            await task.save();
+        }
         if(task){
             await ProjectController.addTask(task.project,task._id)
         }

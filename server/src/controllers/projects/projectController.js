@@ -1,7 +1,7 @@
 import projectModel from "../../models/projectModel.js";
 import taskController from "../tasks/taskController.js";
 import userController from "../users/userController.js";
-
+import { getTasksForProject } from "../../utils/claudio.js";
 const getAll = async(userId=null)=> {
     try {
         if(!userId){
@@ -32,11 +32,28 @@ const getById = async(id) =>{
     }
 }
 
+const createTasksFromClaudio =async (tasks,projectId) =>{
+    try {
+        tasks.forEach(async (task) => {
+            await taskController.create({
+                ...task,
+                project: projectId
+            })
+        })
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
 const create = async(data) =>{
     try {
         const project = await projectModel.create(data);
         project.users.push(data.owner);
+        const result = await getTasksForProject(project);
+        console.log("Claude says",result);
         await project.save();
+        await createTasksFromClaudio(result,project._id);
         await userController.addProject(data.owner,project._id);
         return project;
     } catch (error) {
