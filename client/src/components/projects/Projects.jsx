@@ -1,9 +1,10 @@
 import {getProjects} from "../../utils/fetch";
 import {useEffect, useState} from "react";
-
-
+import ProjectCard from "./ProjectCard";
+import CreateProject from "./CreateProject";
 const Projects = () => {
     const [projects,setProjects] = useState([]);
+    const [isCreating,setIsCreating] = useState(false);
     useEffect(() => {
         getProjects()
             .then((response) => {
@@ -11,14 +12,19 @@ const Projects = () => {
                 setProjects(response.data);
             })
     },[])
+    if(isCreating){
+        return <CreateProject setIsCreating={setIsCreating}/>
+    }
     return (
         <div>
             <h1>Projects</h1>
+            <button onClick={() => setIsCreating(true)}>Create Project</button>
             <ul>
                 {projects.map((project) => (
-                    <li key={project.id}>{project.name}</li>
+                    <ProjectCard key={project._id} project={project}/>
                 ))}
             </ul>
+
         </div>
     )
 }
