@@ -7,7 +7,8 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).json({ error: "No hay token jwt" });
   }
 
-  const token = authorization.split(" ")[1];
+  //const token = authorization.split(" ")[1];
+  const token =authorization.includes("Bearer")  ? authorization.split("Bearer ")[1] : authorization;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await userController.getById(decoded._id);
