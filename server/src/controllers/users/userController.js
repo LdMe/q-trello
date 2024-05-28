@@ -30,12 +30,14 @@ const getById = async(id) =>{
         
     }
 }
-const getByProperty = async(property,value) =>{
+const getByProperty = async(property,value,isAdmin=false) =>{
     try {
-        console.log("property",property)
-        console.log("value",value)
-        const user = await userModel.find({[property]:value}, userRows)
-        return user
+        if(isAdmin){
+            const users = await userModel.find({[property]:value});
+            return users;
+        }
+        const users = await userModel.find({[property]:value}, userRows)
+        return users;
     } catch (error) {
         return null;
     }
