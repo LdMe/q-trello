@@ -51,11 +51,11 @@ const login = async(data) =>{
     try {
         let user;
         if(email){
-            const users = await getByProperty("email",email);
+            const users = await getByProperty("email",email,true);
             user = users[0];
         }
         else{
-            const users = await getByProperty("username",username);
+            const users = await getByProperty("username",username,true);
             user = users[0];
         }
         console.log("usurio",user);
