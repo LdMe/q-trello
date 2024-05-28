@@ -4,17 +4,26 @@ import jwt from "jsonwebtoken";
 
 const getAll = async()=> {
     try {
-        const users = await userModel.find();
+        const users = await userModel.find({}, {_id:1, username:1, email:1, role:1});
         return users;
     } catch (error) {
         console.error(error);
         return [];
     }
 }
+function getUserData(user){
+    return {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        projects: user.projects
+    }
+}
 const getById = async(id) =>{
     try {
-        const user = await userModel.findById(id);
-        return user;
+        const user = await userModel.findById(id, {_id:1, username:1, email:1, role:1});
+        return user
     } catch (error) {
         console.error(error);
         return null;
@@ -25,8 +34,8 @@ const getByProperty = async(property,value) =>{
     try {
         console.log("property",property)
         console.log("value",value)
-        const user = await userModel.find({[property]:value})
-        return user;
+        const user = await userModel.find({[property]:value}, {_id:1, username:1, email:1, role:1})
+        return user
     } catch (error) {
         return null;
     }
@@ -98,7 +107,7 @@ const create = async(data) =>{
 const update = async(id,data) =>{
     try {
         const oldUser = await userModel.findByIdAndUpdate(id,data);
-        const user = await userModel.findById(id);
+        const user = await userModel.findById(id, {_id:1, username:1, email:1, role:1});
         console.log("usurio",user);
         return user;
     } catch (error) {
@@ -150,6 +159,7 @@ const removeProject = async(userId,projectId)=>{
 export const functions = {
     getAll,
     getById,
+    getUserData,
     getByProperty,
     create,
     login,
