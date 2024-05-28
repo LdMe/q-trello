@@ -31,6 +31,10 @@
     {
       "name": "Task",
       "description": "Task management"
+    },
+    {
+      "name": "Invitation",
+      "description": "Invitation management"
     }
   ],
   "paths": {
@@ -724,6 +728,161 @@
           }
         }
       }
+    },
+    "/invitations": {
+      "get": {
+        "summary": "Get all invitations",
+        "tags": [
+          "Invitation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Invitation"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new invitation",
+        "tags": [
+          "Invitation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "invitation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Invitation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/invitations/{invitationId}": {
+      "get": {
+        "summary": "Get an invitation by ID",
+        "tags": [
+          "Invitation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Invitation"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an invitation",
+        "tags": [
+          "Invitation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/invitations/{invitationId}/accept": {
+      "post": {
+        "summary": "Accept an invitation",
+        "tags": [
+          "Invitation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/invitations/{invitationId}/reject": {
+      "post": {
+        "summary": "Reject an invitation",
+        "tags": [
+          "Invitation"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -739,6 +898,9 @@
         "password": {
           "type": "string"
         },
+        "passwordRepeat": {
+          "type": "string"
+        },
         "role": {
           "type": "string",
           "enum": [
@@ -751,7 +913,7 @@
     "Credentials": {
       "type": "object",
       "properties": {
-        "email": {
+        "username": {
           "type": "string"
         },
         "password": {
@@ -815,6 +977,20 @@
             "Doing",
             "Done"
           ]
+        },
+        "project": {
+          "type": "string"
+        }
+      }
+    },
+    "Invitation": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
         },
         "project": {
           "type": "string"

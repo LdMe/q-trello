@@ -13,7 +13,7 @@ const router  =  Router();
 router.get("/",(req,res)=>{
     res.json({data:"hello api"});
 })
-router.use("/users",isAdmin,userRouter);
+router.use("/users",isAuthenticated,userRouter);
 router.use("/projects",isAuthenticated,projectRouter);
 router.use("/tasks",taskRouter);
 router.use("/",authRouter);

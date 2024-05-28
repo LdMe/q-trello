@@ -1,5 +1,5 @@
 import {Router} from "express";
-
+import { isAdmin } from "../middlewares/authMiddleware.js";
 import userApiController from "../controllers/users/userApiController.js";
 
 
@@ -8,8 +8,8 @@ const router  = Router();
 router.get("/",userApiController.getAll);
 router.get("/byproperty",userApiController.getByProperty);
 router.get("/:id",userApiController.getById);
-router.post("/",userApiController.create);
-router.put("/:id",userApiController.update);
-router.delete("/:id",userApiController.remove);
+router.post("/",isAdmin,userApiController.create);
+router.put("/:id",isAdmin,userApiController.update);
+router.delete("/:id",isAdmin,userApiController.remove);
 
 export default router;
