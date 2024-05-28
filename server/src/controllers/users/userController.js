@@ -1,10 +1,10 @@
 import userModel from "../../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+const userRows = {_id:1, username:1, email:1, role:1}
 const getAll = async()=> {
     try {
-        const users = await userModel.find({}, {_id:1, username:1, email:1, role:1});
+        const users = await userModel.find({}, userRows);
         return users;
     } catch (error) {
         console.error(error);
@@ -22,7 +22,7 @@ function getUserData(user){
 }
 const getById = async(id) =>{
     try {
-        const user = await userModel.findById(id, {_id:1, username:1, email:1, role:1});
+        const user = await userModel.findById(id, userRows);
         return user
     } catch (error) {
         console.error(error);
@@ -34,7 +34,7 @@ const getByProperty = async(property,value) =>{
     try {
         console.log("property",property)
         console.log("value",value)
-        const user = await userModel.find({[property]:value}, {_id:1, username:1, email:1, role:1})
+        const user = await userModel.find({[property]:value}, userRows)
         return user
     } catch (error) {
         return null;
@@ -107,7 +107,7 @@ const create = async(data) =>{
 const update = async(id,data) =>{
     try {
         const oldUser = await userModel.findByIdAndUpdate(id,data);
-        const user = await userModel.findById(id, {_id:1, username:1, email:1, role:1});
+        const user = await userModel.findById(id, userRows);
         console.log("usurio",user);
         return user;
     } catch (error) {
