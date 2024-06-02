@@ -19,6 +19,10 @@ const getByProperty=async(req,res)=>{
 
 const register = async(req,res)=>{
     const user = await userController.register(req.body);
+    if(!user){
+        return res.json({error:"No se ha podido registrar el usuario"});
+    }
+
     if(user.error){
         return res.json({error:user.error});
     }
