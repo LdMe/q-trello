@@ -1,33 +1,92 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import ProjectsList from './pages/project/ProjectsList';
+import Project from './pages/project/Project';
 import './App.css'
 
+const projects = [
+  {
+    "_id": "66560db0ce1d312aa56d945b",
+    "name": "prueba",
+    "owner": "66560c915bdf5471c809b42d",
+    "users": [
+      {
+        "_id": "66560c915bdf5471c809b42d",
+        "email": "admin@mail.com",
+        "username": "admin",
+        "role": "user"
+      },
+      {
+        "_id": "66561130703f577e48e48222",
+        "email": "uder@mail.com",
+        "username": "user",
+        "role": "user"
+      }
+    ],
+    "tasks": [
+      {
+        "_id": "66560e1ece1d312aa56d9464",
+        "title": "Crear Readme",
+        "description": "Crear un readme explicando todos los detalles",
+        "estimatedHours": 2,
+        "users": [
+          "66560c915bdf5471c809b42d"
+        ],
+        "status": "ToDo",
+        "project": "66560db0ce1d312aa56d945b",
+        "recommendedUserQuantity": 1,
+        "__v": 1
+      },
+      {
+        "_id": "665d84e193d2838fae73ab56",
+        "title": "leer documentacion",
+        "description": "leer bien la guia de React",
+        "estimatedHours": 10,
+        "users": [],
+        "status": "Doing",
+        "project": "66560db0ce1d312aa56d945b",
+        "recommendedUserQuantity": 1,
+        "__v": 0
+      },
+      {
+        "_id": "665d851693d2838fae73ab5d",
+        "title": "Buscar información",
+        "description": "Buscar datos sobre la aplicación que vamos a hacer",
+        "estimatedHours": 4,
+        "users": [],
+        "status": "Done",
+        "project": "66560db0ce1d312aa56d945b",
+        "recommendedUserQuantity": 1,
+        "__v": 0
+      }
+    ],
+    "daysToComplete": 7,
+    "__v": 5
+  },
+  {
+    "_id": "66561ac2d962a543f44adfa0",
+    "name": "party",
+    "description": "esto es una fiesta",
+    "owner": "66561130703f577e48e48222",
+    "users": [
+      {
+        "_id": "66561130703f577e48e48222",
+        "email": "uder@mail.com",
+        "username": "user",
+        "role": "user"
+      }
+    ],
+    "tasks": [],
+    "daysToComplete": 7,
+    "__v": 1
+  }
+]
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Project project={projects[0]} />
+     <ProjectsList projects={projects} />
     </>
   )
 }
