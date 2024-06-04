@@ -1,7 +1,8 @@
 import userController from "./userController.js";
 
 const getAll = async(req,res)=>{
-    const users = await userController.getAll();
+    const query = req.query.query;
+    const users = await userController.getAll(query);
     res.json({data:users});
 }
 

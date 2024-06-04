@@ -379,9 +379,9 @@ paths:
               status:
                 type: string
                 enum:
-                  - ToDo
-                  - Doing
-                  - Done
+                  - todo
+                  - doing
+                  - done
       responses:
         '200':
           description: Successful response
@@ -580,9 +580,9 @@ definitions:
       status:
         type: string
         enum:
-          - ToDo
-          - Doing
-          - Done
+          - todo
+          - doing
+          - done
       project:
         type: string
   Invitation:
