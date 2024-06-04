@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState,useEffect} from 'react'
 import ProjectsList from './pages/project/ProjectsList';
 import Project from './pages/project/Project';
+import Register from "./components/register/Register";
+import { getProjects } from './utils/fetch';
 import './App.css'
 
-const projects = [
+/* const projects = [
   {
     "_id": "66560db0ce1d312aa56d945b",
     "name": "prueba",
@@ -79,14 +81,28 @@ const projects = [
     "daysToComplete": 7,
     "__v": 1
   }
-]
+] */
 function App() {
-  
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [projects,setProjects] = useState([]);
+  useEffect(()=>{
+    fetchProjects();
+  },[]);
+  async function fetchProjects(){
+    const result = await getProjects();
+    console.log("proijects",result);
+    setProjects(result.data);
+  }
   return (
     <>
-      <Project project={projects[0]} />
-     <ProjectsList projects={projects} />
+      {!isLoggedIn ?
+        <Register onLogin={()=>setIsLoggedIn(true)}/>
+        :
+        <>
+          {/* <Project project={projects[0]} /> */}
+          <ProjectsList projects={projects} />
+        </>
+      }
     </>
   )
 }
