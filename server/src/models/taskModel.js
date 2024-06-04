@@ -26,7 +26,8 @@ const taskSchema = new mongoose.Schema({
     recommendedUserQuantity:{
         type: Number,
         default: 1
-    }
+    },
+    creation_date : { type : Date, default: Date.now }
 })
 
 const taskModel = mongoose.model("tasks",taskSchema);

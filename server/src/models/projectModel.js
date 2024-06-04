@@ -25,7 +25,8 @@ const projectSchema = new mongoose.Schema({
     daysToComplete: {
         type: Number,
         default: 7
-    }
+    },
+    creation_date : { type : Date, default: Date.now }
 });
 
 const projectModel = mongoose.model("projects",projectSchema);

@@ -14,7 +14,10 @@ const getAll = async (userId = null) => {
             const project = await getById(projectId);
             return project;
         }));
-        return userProjects;
+        const orderedProjects = userProjects.sort((a, b) => {
+            return b.creation_date - a.creation_date;
+        })
+        return orderedProjects;
     } catch (error) {
         console.error(error);
         return [];

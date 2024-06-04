@@ -12,7 +12,8 @@ const invitationSchema = new mongoose.Schema({
     project: {
         type: mongoose.Schema.ObjectId,
         ref: 'projects'
-    }
+    },
+    creation_date : { type : Date, default: Date.now }
 });
 
 const invitationModel = mongoose.model("invitations",invitationSchema);
