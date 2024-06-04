@@ -637,9 +637,9 @@
                 "status": {
                   "type": "string",
                   "enum": [
-                    "ToDo",
-                    "Doing",
-                    "Done"
+                    "todo",
+                    "doing",
+                    "done"
                   ]
                 }
               }
@@ -973,9 +973,9 @@
         "status": {
           "type": "string",
           "enum": [
-            "ToDo",
-            "Doing",
-            "Done"
+            "todo",
+            "doing",
+            "done"
           ]
         },
         "project": {

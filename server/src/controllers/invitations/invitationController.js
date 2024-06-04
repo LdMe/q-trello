@@ -70,7 +70,11 @@ const create = async (data) => {
             console.log("from not in project or to in project");
             return null;
         }
-
+        // if already exists an invitation with the same project and to retun
+       const oldInvitation = await invitationModel.findOne({project:data.project,to:data.to});
+       if(oldInvitation){
+           return null;
+       }
         const invitation = await invitationModel.create(data);
         return invitation;
     } catch (error) {

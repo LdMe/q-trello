@@ -2,9 +2,18 @@ import userModel from "../../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 const userRows = {_id:1, username:1, email:1, role:1,projects:1};
-const getAll = async()=> {
+const getAll = async(query=null)=> {
     try {
-        const users = await userModel.find({}, userRows);
+        const filter = {};
+        if(query){
+            // check if username or email is similar to query value with an or
+            filter.$or = [
+                {username: {$regex: ".*"+query+".*", $options: "i"}},
+                {email: {$regex: ".*"+query+".*", $options: "i"}}
+            ]
+
+        }
+        const users = await userModel.find(filter, userRows);
         return users;
     } catch (error) {
         console.error(error);
