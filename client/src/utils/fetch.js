@@ -47,10 +47,30 @@ const createProject = async(projectData)=>{
     const result = await fetchData("/projects","post",projectData);
     return result;
 }
+const getProject = async(projectId)=>{
+    const result = await fetchData(`/projects/${projectId}`,"get");
+    return result;
+}
+const createTask = async(taskData)=>{
+    const result = await fetchData("/tasks","post",taskData);
+    return result;
+}
+const getUsers = async(query)=>{
+    const result = await fetchData("/users","get",query);
+    return result;
+}
+const inviteUser = async(projectId,userId)=>{
+    const result = await fetchData(`/invitations/`,"post",{project:projectId,to:userId});
+    return result;
+}
 
 export {
     register,
     login,
     getProjects,
-    createProject
+    createProject,
+    getProject,
+    createTask,
+    getUsers,
+    inviteUser
 }

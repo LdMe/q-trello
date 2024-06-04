@@ -11,7 +11,7 @@ const CreateProject = ({onCreate})=>{
         console.log("name",data)
         const result = await createProject(data);
         console.log("result",result)
-        onCreate();
+        onCreate(result.data);
     }
     return (
         <form action="" className="create-project" onSubmit={handleSubmit}>

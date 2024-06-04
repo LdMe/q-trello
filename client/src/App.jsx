@@ -33,7 +33,7 @@ import './App.css'
         "users": [
           "66560c915bdf5471c809b42d"
         ],
-        "status": "ToDo",
+        "status": "todo",
         "project": "66560db0ce1d312aa56d945b",
         "recommendedUserQuantity": 1,
         "__v": 1
@@ -44,7 +44,7 @@ import './App.css'
         "description": "leer bien la guia de React",
         "estimatedHours": 10,
         "users": [],
-        "status": "Doing",
+        "status": "doing",
         "project": "66560db0ce1d312aa56d945b",
         "recommendedUserQuantity": 1,
         "__v": 0
@@ -55,7 +55,7 @@ import './App.css'
         "description": "Buscar datos sobre la aplicación que vamos a hacer",
         "estimatedHours": 4,
         "users": [],
-        "status": "Done",
+        "status": "done",
         "project": "66560db0ce1d312aa56d945b",
         "recommendedUserQuantity": 1,
         "__v": 0
