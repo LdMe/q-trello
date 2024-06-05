@@ -40,15 +40,15 @@ const login = async(userData)=>{
     console.log("login",result);
     return result;
 }
-const getUserData = async()=>{
+const fetchUserData = async()=>{
     const result = await fetchData("/users/bytoken","get");
     return result;
 }
-const getProjects = async()=>{
+const fetchProjects = async()=>{
     const result = await fetchData("/projects","get");
     return result;
 }
-const getProject = async(id)=>{
+const fetchProject = async(id)=>{
     const result = await fetchData("/projects/"+id,"get");
     return result;
 }
@@ -57,11 +57,57 @@ const createProject = async(projectData)=>{
     return result;
 }
 
+const fetchUsers = async(query)=>{
+    const result = await fetchData("/users","get",query);
+    return result;
+}
+const inviteUser = async(projectId,userId)=>{
+    const result = await fetchData(`/invitations/`,"post",{project:projectId,to:userId});
+    return result;
+}
+
+const fetchInvitations = async()=>{
+    const result = await fetchData("/invitations","get");
+    return result;
+}
+const acceptInvitation = async(invitationId)=>{
+    const result = await fetchData("/invitations/"+invitationId+"/accept","post");
+    return result;
+}
+const rejectInvitation = async(invitationId)=>{
+    const result = await fetchData("/invitations/"+invitationId+"/reject","post");
+    return result;
+}
+const fetchTasks = async(projectId)=>{
+    const result = await fetchData("/tasks","get",{projectId});
+    return result;
+}
+const createTask = async(taskData)=>{
+    const result = await fetchData("/tasks","post",taskData);
+    return result;
+}
+const removeTask = async(taskId)=>{
+    const result = await fetchData("/tasks/"+taskId,"delete");
+    return result;
+}
+const updateTask = async(taskData)=>{
+    const result = await fetchData("/tasks/"+taskData._id,"put",taskData);
+    return result;
+}
 export {
     register,
     login,
-    getProjects,
-    getProject,
+    fetchProjects,
+    fetchProject,
     createProject,
-    getUserData
+    fetchUserData,
+    fetchUsers,
+    inviteUser,
+    fetchInvitations,
+    acceptInvitation,
+    rejectInvitation,
+    fetchTasks,
+    createTask,
+    removeTask,
+    updateTask
 }

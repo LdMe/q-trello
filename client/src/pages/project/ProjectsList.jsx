@@ -2,9 +2,15 @@ import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import CreateProject from "../../components/project/CreateProject";
+import "./ProjectsList.css";
 const ProjectsList = () => {
     const [projects,setProjects] = useState(useLoaderData());
     const [creatingProject,setCreatingProject] = useState(false);
+
+    const handleCreateProject = (project) => {
+        setCreatingProject(false);
+        setProjects([project,...projects]);
+    }
     const projectsHtml = projects.map(project => {
         return (
             <article className="project-list-element" key={project._id}>
@@ -15,14 +21,15 @@ const ProjectsList = () => {
             </article>
         )
     })
+    
     return (
         <>
         {creatingProject ?
             <Modal onClose={()=>setCreatingProject(false)}>
-                <CreateProject onCreate={()=>setCreatingProject(false)}/>
+                <CreateProject onCreate={handleCreateProject}/>
             </Modal>
             :
-            <button onClick={()=>setCreatingProject(true)}>New Project</button>
+            <button className="new-project" onClick={()=>setCreatingProject(true)}>New Project</button>
         }
             <section className="project-list">
                 {projectsHtml}

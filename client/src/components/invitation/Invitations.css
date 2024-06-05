@@ -1,0 +1,74 @@
+/* Invitations Section Styles */
+section.invitations {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section.invitations h2 {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section.invitations h2 button {
+    padding: 5px 10px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+section.invitations h2 button:hover {
+    background-color: #5a6268;
+}
+
+section.sent-invitations {
+    margin-top: 20px;
+}
+
+section.sent-invitations h3 {
+    margin-top: 0;
+}
+
+section.sent-invitations article {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+section.sent-invitations article p {
+    margin: 0;
+}
+
+section.sent-invitations article button {
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+section.sent-invitations article button:hover {
+    background-color: #0056b3;
+}
+
+section.sent-invitations article button:nth-of-type(2) {
+    background-color: #dc3545;
+}
+
+section.sent-invitations article button:nth-of-type(2):hover {
+    background-color: #c82333;
+}

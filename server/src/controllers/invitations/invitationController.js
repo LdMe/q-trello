@@ -20,6 +20,7 @@ const getAll = async (userId = null) => {
                 path:"to",
                 select: { username:1, email:1, role:1 }
             });
+            await invitation.populate("project");
             return invitation;
         }))
         await Promise.all(receivedInvitations.map(async (invitation) => {
@@ -31,6 +32,7 @@ const getAll = async (userId = null) => {
                 path:"to",
                 select: { username:1, email:1, role:1 }
             });
+            await invitation.populate("project");
             return invitation;
         }))
         const userinvitations = {
