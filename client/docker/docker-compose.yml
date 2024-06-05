@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=qtrello.tbfsb.com
+      - LETSENCRYPT_HOST=qtrello.tbfsb.com
+      - LETSENCRYPT_EMAIL=adamin@qtrello.tbfsb.com
+    volumes:
+      - ../dist:/usr/share/nginx/html:ro
+      ##En caso de que tenga rutass variables o se quiera configurar nginx##
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - proxy
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: nginx-proxy
+    external: true
