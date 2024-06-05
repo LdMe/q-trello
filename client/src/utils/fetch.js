@@ -37,10 +37,19 @@ const register = async(userData)=>{
 }
 const login = async(userData)=>{
     const result = await fetchData("/login","post",userData);
+    console.log("login",result);
+    return result;
+}
+const getUserData = async()=>{
+    const result = await fetchData("/users/bytoken","get");
     return result;
 }
 const getProjects = async()=>{
     const result = await fetchData("/projects","get");
+    return result;
+}
+const getProject = async(id)=>{
+    const result = await fetchData("/projects/"+id,"get");
     return result;
 }
 const createProject = async(projectData)=>{
@@ -52,5 +61,7 @@ export {
     register,
     login,
     getProjects,
-    createProject
+    getProject,
+    createProject,
+    getUserData
 }

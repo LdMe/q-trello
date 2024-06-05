@@ -77,8 +77,13 @@ const login = async(data) =>{
             return {error:"Combinación de usuario y contraseña erroneos",status:400};
         }
         console.log("login user",user)
-        const token = jwt.sign({_id:user._id,username:user.username,role:user.role},process.env.JWT_SECRET,{expiresIn: 60 * 60})
-        return {token};
+        const token = jwt.sign({_id:user._id,username:user.username,role:user.role},process.env.JWT_SECRET,{expiresIn: 60 * 60 * 24})
+        const userData ={
+            _id: user._id,
+            username: user.username,
+            role: user.role,
+        }
+        return {token,user:userData};
 
         
     } catch (error) {

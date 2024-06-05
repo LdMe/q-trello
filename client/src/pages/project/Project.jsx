@@ -1,8 +1,9 @@
 import Task from "./Task";
 import "./Project.css";
+import { useLoaderData } from "react-router-dom";
 
-const Project = ({project})=>{
-
+const Project = ()=>{
+    const project = useLoaderData();
     const getOwnerName =(users,id) =>{
         const user = users.find(user => user._id === id);
         return user?.username;
