@@ -1,11 +1,11 @@
 import Modal from "../modal/Modal"
 import { useState } from "react";
 import "./Confirm.css";
-const Confirm = ({ title, message, onConfirm, onCancel }) => {
+const Confirm = ({ title,className, message, onConfirm, onCancel }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     if (!isModalOpen) return (
-        <button onClick={() => setIsModalOpen(true)}>{title}</button>
+        <button className={className} onClick={() => setIsModalOpen(true)}>{title}</button>
     )
     function handleCancel() {
         setIsModalOpen(false);

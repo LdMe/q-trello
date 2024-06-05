@@ -57,6 +57,10 @@ const createProject = async(projectData)=>{
     return result;
 }
 
+const deleteProject = async(id)=>{
+    const result = await fetchData("/projects/"+id,"delete");
+    return result;
+}
 const fetchUsers = async(query)=>{
     const result = await fetchData("/users","get",query);
     return result;
@@ -100,6 +104,7 @@ export {
     fetchProjects,
     fetchProject,
     createProject,
+    deleteProject,
     fetchUserData,
     fetchUsers,
     inviteUser,
